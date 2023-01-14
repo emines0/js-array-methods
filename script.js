@@ -27,9 +27,17 @@ async function getRandomUser() {
 
  addData(newUser);
 }
+//  Double Money
+function doubleMoney() {
+  data = data.map((user) => {
+    return { ...user, money: user.money * 2 } //returnig everithing what is in the user object and set money to money*2
+  });
+
+  updateDOM();
+}
+
 
 // Add new obj to data arr
-
 function addData(obj) {
   data.push(obj);
 
@@ -52,7 +60,6 @@ function updateDOM(providedData = data) { //if nothing is passed to the function
 
 
 // Format number as money - https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
-
 function formatMoney(number) {
   return '$' + (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');  // 12,345.67
 
@@ -61,3 +68,4 @@ function formatMoney(number) {
 
 // Event listeners
 addUserBtn.addEventListener('click', getRandomUser);
+doubleBtn.addEventListener('click', doubleMoney);
