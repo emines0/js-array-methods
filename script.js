@@ -32,4 +32,32 @@ async function getRandomUser() {
 
 function addData(obj) {
   data.push(obj);
+
+  updateDOM();
 }
+
+// Update DOM
+function updateDOM(providedData = data) { //if nothing is passed to the function it will use "data"
+  // Clear main div
+  main.innerHTML = '<h2><strong>Person</strong> Wealth</h2>';
+
+  // Take provided data and loop through that
+  providedData.forEach(item => { //if we have only one parameter, dont need surrounding parenthesis around item
+    const element = document.createElement('div');
+    element.classList.add('person');
+    element.innerHTML = `<strong>${item.name}</strong> ${formatMoney(item.money)}`;
+    main.appendChild(element);
+  })
+}
+
+
+// Format number as money - https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string
+
+function formatMoney(number) {
+  return '$' + (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');  // 12,345.67
+
+}
+
+
+// Event listeners
+addUserBtn.addEventListener('click', getRandomUser);
